@@ -1,0 +1,136 @@
+body {
+  background-color: #424242;
+  color: #ddd;
+  font-family: 'Times New Roman', 'Microsoft JhengHei';
+}
+
+.app {
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 0px;
+  margin-bottom: 30px;
+}
+
+.container {
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  border: 1px solid #6C6C6C;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 460px;
+  margin: 0 auto;
+  background-color: #4F4F4F;
+}
+
+.form-content {
+  margin-bottom: 10px;
+}
+
+.form-field {
+  margin-bottom: 30px;
+}
+
+.form-config {
+  display: inline;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#addAtk {
+  margin-right: 5px;
+}
+
+.form-add {
+  display: inline-block;
+  margin-right: 20px;
+  margin-bottom: 30px;
+}
+
+.image-container {
+  display: inline;
+}
+
+.image-container img {
+  margin-right: 10px;
+  margin-bottom: -5.5px;
+}
+
+#hint {
+  display: block;
+  position: absolute;
+  margin: 5px 236.5px;
+}
+
+@media (max-width: 510px) {
+  .form-config {
+    display: block;
+  }
+  .form-add {
+    display: block;
+  }
+  #hint {
+    display: inline;
+    margin: 0;
+  }
+}
+
+#bold {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.radio-group {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.radio-group label {
+  margin-right: 10px;
+}
+
+.form-footer {
+  margin-top: 40px;
+}
+
+input[type='number'] {
+  color: #ddd;
+  width: 45px;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #6C6C6C;
+  appearance: none;
+  background-color: #424242;
+}
+
+select {
+  color: #ddd;
+  padding: 5px 15px;
+  border-radius: 5px;
+  border: 1px solid #6C6C6C;
+  appearance: none;
+  background-color: #424242;
+}
+
+input[type='number']:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 3px #8c8c8c;
+}
+
+input[type='checkbox'] {
+  margin-left: 5px;
+}
