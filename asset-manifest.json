@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/msScroll/static/css/main.3faed792.css",
-    "main.js": "/msScroll/static/js/main.b0f16f34.js",
+    "main.js": "/msScroll/static/js/main.af144b38.js",
     "index.html": "/msScroll/index.html",
     "main.3faed792.css.map": "/msScroll/static/css/main.3faed792.css.map",
-    "main.b0f16f34.js.map": "/msScroll/static/js/main.b0f16f34.js.map"
+    "main.af144b38.js.map": "/msScroll/static/js/main.af144b38.js.map"
   },
   "entrypoints": [
     "static/css/main.3faed792.css",
-    "static/js/main.b0f16f34.js"
+    "static/js/main.af144b38.js"
   ]
 }
