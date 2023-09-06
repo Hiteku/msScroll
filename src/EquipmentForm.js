@@ -1,8 +1,54 @@
 /* eslint-disable no-fallthrough */
 /* eslint-disable default-case */
+import styled from "styled-components";
 import React, { useState } from 'react';
 import imgIcon from './img/icon.png';
 import imgHint from './img/hint.png';
+
+const CheckBoxWrapper = styled.div`
+  position: flex;
+  margin: -25px 45px -20px auto;
+`;
+
+const CheckBoxLabel = styled.label`
+  position: absolute;
+  width: 42px;
+  height: 26px;
+  border-radius: 15px;
+  background: #bebebe;
+  cursor: pointer;
+  &::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 3px;
+    background: #ffffff;
+    box-shadow: 1px 3px 3px 1px rgba(0, 0, 0, 0.2);
+    transition: 0.2s;
+  }
+`;
+
+const CheckBox = styled.input`
+  opacity: 0;
+  z-index: 1;
+  border-radius: 15px;
+  width: 42px;
+  height: 26px;
+  &:checked + ${CheckBoxLabel} {
+    background: #9393FF;
+    &::after {
+      content: "";
+      display: block;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      margin-left: 21px;
+      transition: 0.2s;
+    }
+  }
+`;
 
 const EquipmentForm = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -15,6 +61,13 @@ const EquipmentForm = () => {
   const [baseAttack, setBaseAttack] = useState(0);
   const [hasAllStats, setHasAllStats] = useState(false);
   const [hasBothAttack, setHasBothAttack] = useState(false);
+  const [V255, switchV255] = useState(false);
+
+  const handleSwitchToggle = () => {
+    if (V255) window.alert('關閉V255的改動')
+    else window.alert('開啟V255的改動')
+    switchV255((prevState) => !prevState);
+  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -62,103 +115,104 @@ const EquipmentForm = () => {
 
   const calculateTotalAttack = () => {
     let totalAttack, atk = addAttack, star = starForce, average, iconScroll, text, error = false, result
-    if (equipmentType === 'weapon' && equipmentName === '武器') { // 武器
-      switch (parseInt(equipmentLevel)) {
-        case 200:
-          switch (star) {
-            case 25: atk-=36
-            case 24: atk-=35
-            case 23: atk-=34
-            case 22: atk-=17
-            case 21: atk-=16
-            case 20: atk-=15
-            case 19: atk-=14
-            case 18: atk-=14
-            case 17: atk-=13
-            case 16: atk-=13
-          }
-          break;
-        case 160:
-          switch (star) {
-            case 25: atk-=34
-            case 24: atk-=33
-            case 23: atk-=32
-            case 22: atk-=14
-            case 21: atk-=13
-            case 20: atk-=12
-            case 19: atk-=11
-            case 18: atk-=10
-            case 17: atk-=9
-            case 16: atk-=9
-          }
-          break;
-        case 150:
-          switch (star) {
-            case 25: atk-=33
-            case 24: atk-=32
-            case 23: atk-=31
-            case 22: atk-=13
-            case 21: atk-=12
-            case 20: atk-=11
-            case 19: atk-=10
-            case 18: atk-=9
-            case 17: atk-=9
-            case 16: atk-=8
-          }
-          break;
+    if (!V255) 
+      if (equipmentType === 'weapon' && equipmentName === '武器') { // 武器
+        switch (parseInt(equipmentLevel)) {
+          case 200:
+            switch (star) {
+              case 25: atk-=36
+              case 24: atk-=35
+              case 23: atk-=34
+              case 22: atk-=17
+              case 21: atk-=16
+              case 20: atk-=15
+              case 19: atk-=14
+              case 18: atk-=14
+              case 17: atk-=13
+              case 16: atk-=13
+            }
+            break;
+          case 160:
+            switch (star) {
+              case 25: atk-=34
+              case 24: atk-=33
+              case 23: atk-=32
+              case 22: atk-=14
+              case 21: atk-=13
+              case 20: atk-=12
+              case 19: atk-=11
+              case 18: atk-=10
+              case 17: atk-=9
+              case 16: atk-=9
+            }
+            break;
+          case 150:
+            switch (star) {
+              case 25: atk-=33
+              case 24: atk-=32
+              case 23: atk-=31
+              case 22: atk-=13
+              case 21: atk-=12
+              case 20: atk-=11
+              case 19: atk-=10
+              case 18: atk-=9
+              case 17: atk-=9
+              case 16: atk-=8
+            }
+            break;
+        }
+        totalAttack = baseAttack + atk
+        star = (star < 16) ? star : 15
+        for (let s = 0; s < star; s++) {
+          var lessAttack = Math.floor(totalAttack/50)+1
+          if (Math.floor((totalAttack-lessAttack)/50)+1 === lessAttack)
+            totalAttack -= Math.floor(totalAttack/50)+1
+          else totalAttack -= Math.floor(totalAttack/50)
+        }
+        atk = totalAttack-baseAttack
       }
-      totalAttack = baseAttack + atk
-      star = (star < 16) ? star : 15
-      for (let s = 0; s < star; s++) {
-        var lessAttack = Math.floor(totalAttack/50)+1
-        if (Math.floor((totalAttack-lessAttack)/50)+1 === lessAttack)
-          totalAttack -= Math.floor(totalAttack/50)+1
-        else totalAttack -= Math.floor(totalAttack/50)
+      else {
+        var starAttack = (star < 16) ? 0 : star-15
+        switch (parseInt(equipmentLevel)) { // 心臟 : 防具飾品
+          case 250: atk-=starAttack*2
+          case 200: atk-=starAttack*2
+          case 170: case 160: atk-=starAttack
+          case 155: case 150: atk-=starAttack
+          case 140:
+            switch (star) {
+              case 25: atk-=21
+              case 24: atk-=19
+              case 23: atk-=17
+              case 22: atk-=15
+              case 21: atk-=13
+              case 20: atk-=12
+              case 19: atk-=11
+              case 18: atk-=10
+              case 17: atk-=9
+              case 16: atk-=8
+            }
+            if (equipmentName.includes('手套')) {
+              if (star >= 15) atk--
+              if (star >= 14) atk--
+              if (star >= 13) atk--
+              if (star >= 11) atk--
+              if (star >= 9) atk--
+              if (star >= 7) atk--
+              if (star >= 5) atk--
+            }
+            break;
+          case 135: 
+            switch (star) {
+              case 25: case 24: case 23:
+              case 22: case 21: case 20: atk-=11
+              case 19: atk-=10
+              case 18: atk-=9
+              case 17: atk-=8
+              case 16: atk-=7
+            }
+            break;
+        }
       }
-      atk = totalAttack-baseAttack
-    }
-    else {
-      var starAttack = (star < 16) ? 0 : star-15
-      switch (parseInt(equipmentLevel)) { // 心臟 : 防具飾品
-        case 250: atk-=starAttack*2
-        case 200: atk-=starAttack*2
-        case 170: case 160: atk-=starAttack
-        case 155: case 150: atk-=starAttack
-        case 140:
-          switch (star) {
-            case 25: atk-=21
-            case 24: atk-=19
-            case 23: atk-=17
-            case 22: atk-=15
-            case 21: atk-=13
-            case 20: atk-=12
-            case 19: atk-=11
-            case 18: atk-=10
-            case 17: atk-=9
-            case 16: atk-=8
-          }
-          if (equipmentName.includes('手套')) {
-            if (star >= 15) atk--
-            if (star >= 14) atk--
-            if (star >= 13) atk--
-            if (star >= 11) atk--
-            if (star >= 9) atk--
-            if (star >= 7) atk--
-            if (star >= 5) atk--
-          }
-          break;
-        case 135: 
-          switch (star) {
-            case 25: case 24: case 23:
-            case 22: case 21: case 20: atk-=11
-            case 19: atk-=10
-            case 18: atk-=9
-            case 17: atk-=8
-            case 16: atk-=7
-          }
-          break;
-      }
-    }
     average = atk/scrollQuantity
     if (equipmentType === 'weapon') average-=5
     switch (average) {
@@ -225,6 +279,11 @@ const EquipmentForm = () => {
               />
               防具／飾品
             </label>
+            <CheckBoxWrapper>
+              <CheckBox id="checkbox" type="checkbox"
+                checked={V255} onChange={handleSwitchToggle}/>
+              <CheckBoxLabel htmlFor="checkbox"/>
+            </CheckBoxWrapper>
           </div>
         </div>
         <div className="form-field">
@@ -343,7 +402,7 @@ const EquipmentForm = () => {
         </div>
         {equipmentType === 'weapon' && equipmentName === '武器' && (
           <>
-            <div className="form-add" id="bold">
+            {!V255 && (<div className="form-add" id="bold">
               白字攻擊力 <input
                 type="number"
                 min="0"
@@ -351,13 +410,13 @@ const EquipmentForm = () => {
                 value={baseAttack}
                 onChange={handleBaseAttackChange}
               />
-            </div>
+            </div>)}
             <div className="form-add">
               <input
                 type="checkbox"
                 checked={hasAllStats}
                 onChange={handleHasAllStatsChange}
-              />全屬性皆有藍字
+              />全屬性皆有{V255 ? '紫' : '藍'}字
             </div>
           </>
         )}
@@ -367,11 +426,11 @@ const EquipmentForm = () => {
               type="checkbox"
               checked={hasBothAttack}
               onChange={handleHasBothAttackChange}
-            />物魔攻皆有藍字
+            />物魔攻皆有{V255 ? '紫' : '藍'}字
           </div>
         )}
         <div className="form-field">
-          <div className="form-config">
+          {!V255 && (<div className="form-config">
             星力 <input
               type="number"
               min="0"
@@ -379,7 +438,7 @@ const EquipmentForm = () => {
               value={starForce}
               onChange={handlestarChange}
             />
-          </div>
+          </div>)}
           <div className="form-config">
             卷數 <input
               type="number"
@@ -390,7 +449,7 @@ const EquipmentForm = () => {
             />
           </div>
           <div className="form-config" id="addAtk">
-            藍字攻擊力 <input
+            {V255 ? '紫' : '藍'}字攻擊力 <input
               type="number"
               min="0"
               max="999"
@@ -399,7 +458,7 @@ const EquipmentForm = () => {
               style={{width: "60px"}}
             />
           </div>
-          <div className="image-container">
+          {!V255 && (<div className="image-container">
             <img
               src={imgIcon}
               alt="Equipment"
@@ -414,7 +473,7 @@ const EquipmentForm = () => {
                 id="hint"
               />
             )}
-          </div>
+          </div>)}
         </div>
       </div>
       <div className="form-footer">
