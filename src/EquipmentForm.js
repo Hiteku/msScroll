@@ -64,8 +64,8 @@ const EquipmentForm = () => {
   const [V255, switchV255] = useState(false);
 
   const handleSwitchToggle = () => {
-    if (V255) window.alert('關閉V255的改動')
-    else window.alert('開啟V255的改動')
+    // if (V255) window.alert('關閉V255的改動')
+    // else window.alert('開啟V255的改動')
     switchV255((prevState) => !prevState);
   };
 
@@ -292,21 +292,21 @@ const EquipmentForm = () => {
             <option value="">請選擇</option>
             {equipmentType === 'weapon' && (
               <>
-                <option value="150">150</option>
-                <option value="160">160</option>
                 <option value="200">200</option>
+                <option value="160">160</option>
+                <option value="150">150</option>
               </>
             )}
             {equipmentType === 'armor' && (
               <>
-                <option value="135">135</option>
-                <option value="140">140</option>
-                <option value="150">150</option>
-                <option value="155">155</option>
-                <option value="160">160</option>
-                <option value="170">170</option>
-                <option value="200">200</option>
                 <option value="250">250</option>
+                <option value="200">200</option>
+                <option value="170">170</option>
+                <option value="160">160</option>
+                <option value="155">155</option>
+                <option value="150">150</option>
+                <option value="140">140</option>
+                <option value="135">≤135</option>
               </>
             )}
           </select>
@@ -332,6 +332,10 @@ const EquipmentForm = () => {
             )}
             {equipmentType === 'armor' && equipmentLevel === '135' && (
               <>
+                <option value="惡魔賢者盾">惡魔賢者盾</option>
+                <option value="惡魔黑暗盾">惡魔黑暗盾</option>
+                <option value="永恆魔光盾">永恆魔光盾</option>
+                <option value="致命劍盾">致命劍盾</option>
                 <option value="紫翼護肩">紫翼護肩</option>
                 <option value="紫翼戒指">紫翼戒指</option>
                 <option value="紫翼耳環">紫翼耳環</option>
@@ -339,10 +343,10 @@ const EquipmentForm = () => {
             )}
             {equipmentType === 'armor' && equipmentLevel === '140' && (
               <>
-                <option value="混沌皇后的皇冠">混沌皇后的皇冠</option>
-                <option value="混沌比艾樂帽">混沌比艾樂帽</option>
-                <option value="混沌斑斑頭盔">混沌斑斑頭盔</option>
                 <option value="混沌貝倫的頭盔">混沌貝倫的頭盔</option>
+                <option value="混沌斑斑頭盔">混沌斑斑頭盔</option>
+                <option value="混沌比艾樂帽">混沌比艾樂帽</option>
+                <option value="混沌皇后的皇冠">混沌皇后的皇冠</option>
               </>
             )}
             {equipmentType === 'armor' && equipmentLevel === '150' && (
